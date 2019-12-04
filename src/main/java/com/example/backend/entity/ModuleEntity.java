@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "module", schema = "test1", catalog = "")
+@Table(name = "Module", schema = "SE-Platform", catalog = "")
 public class ModuleEntity {
     private Integer typeId;
     private String taskType;

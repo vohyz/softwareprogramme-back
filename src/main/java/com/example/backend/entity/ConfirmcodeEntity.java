@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "confirmcode", schema = "test1", catalog = "")
+@Table(name = "Confirmcode", schema = "SE-Platform", catalog = "")
 public class ConfirmcodeEntity {
     private int id;
     private Timestamp addtime;

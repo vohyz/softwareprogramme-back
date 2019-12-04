@@ -6,23 +6,23 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "task", schema = "test1", catalog = "")
-public class TaskEntity {
-    private int taskId;
+@Table(name = "Taskdrafts", schema = "SE-Platform", catalog = "")
+public class TaskdraftsEntity {
+    private int id;
     private String taskInfo;
     private Double taskBonus;
     private Timestamp taskBeginTime;
     private Timestamp taskEndTime;
-    private Date taskPublishTime;
+    private Date taskAddtime;
 
     @Id
-    @Column(name = "task_id")
-    public int getTaskId() {
-        return taskId;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -66,30 +66,30 @@ public class TaskEntity {
     }
 
     @Basic
-    @Column(name = "task_publish_time")
-    public Date getTaskPublishTime() {
-        return taskPublishTime;
+    @Column(name = "task_addtime")
+    public Date getTaskAddtime() {
+        return taskAddtime;
     }
 
-    public void setTaskPublishTime(Date taskPublishTime) {
-        this.taskPublishTime = taskPublishTime;
+    public void setTaskAddtime(Date taskAddtime) {
+        this.taskAddtime = taskAddtime;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TaskEntity that = (TaskEntity) o;
-        return taskId == that.taskId &&
+        TaskdraftsEntity that = (TaskdraftsEntity) o;
+        return id == that.id &&
                 Objects.equals(taskInfo, that.taskInfo) &&
                 Objects.equals(taskBonus, that.taskBonus) &&
                 Objects.equals(taskBeginTime, that.taskBeginTime) &&
                 Objects.equals(taskEndTime, that.taskEndTime) &&
-                Objects.equals(taskPublishTime, that.taskPublishTime);
+                Objects.equals(taskAddtime, that.taskAddtime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskPublishTime);
+        return Objects.hash(id, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskAddtime);
     }
 }

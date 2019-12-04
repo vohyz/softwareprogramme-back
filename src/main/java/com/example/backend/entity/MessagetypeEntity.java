@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "messagetype", schema = "test1", catalog = "")
+@Table(name = "Messagetype", schema = "SE-Platform", catalog = "")
 public class MessagetypeEntity {
     private int mTypeId;
     private String mTypeName;

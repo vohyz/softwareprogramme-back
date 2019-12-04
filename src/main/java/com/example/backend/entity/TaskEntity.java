@@ -6,23 +6,35 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "taskdrafts", schema = "test1", catalog = "")
-public class TaskdraftsEntity {
-    private int id;
+@Table(name = "Task", schema = "SE-Platform", catalog = "")
+public class TaskEntity {
+    private int taskId;
+    private String taskTitle;
     private String taskInfo;
     private Double taskBonus;
     private Timestamp taskBeginTime;
     private Timestamp taskEndTime;
-    private Date taskAddtime;
+    private Date taskPublishTime;
+    private String taskStatus;
 
     @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
+    @Column(name = "task_id")
+    public int getTaskId() {
+        return taskId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    @Basic
+    @Column(name = "task_title")
+    public String getTaskTitle() {
+        return taskTitle;
+    }
+
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
     }
 
     @Basic
@@ -66,30 +78,42 @@ public class TaskdraftsEntity {
     }
 
     @Basic
-    @Column(name = "task_addtime")
-    public Date getTaskAddtime() {
-        return taskAddtime;
+    @Column(name = "task_publish_time")
+    public Date getTaskPublishTime() {
+        return taskPublishTime;
     }
 
-    public void setTaskAddtime(Date taskAddtime) {
-        this.taskAddtime = taskAddtime;
+    public void setTaskPublishTime(Date taskPublishTime) {
+        this.taskPublishTime = taskPublishTime;
+    }
+
+    @Basic
+    @Column(name = "task_status")
+    public String getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TaskdraftsEntity that = (TaskdraftsEntity) o;
-        return id == that.id &&
+        TaskEntity that = (TaskEntity) o;
+        return taskId == that.taskId &&
+                Objects.equals(taskTitle, that.taskTitle) &&
                 Objects.equals(taskInfo, that.taskInfo) &&
                 Objects.equals(taskBonus, that.taskBonus) &&
                 Objects.equals(taskBeginTime, that.taskBeginTime) &&
                 Objects.equals(taskEndTime, that.taskEndTime) &&
-                Objects.equals(taskAddtime, that.taskAddtime);
+                Objects.equals(taskPublishTime, that.taskPublishTime) &&
+                Objects.equals(taskStatus, that.taskStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskAddtime);
+        return Objects.hash(taskId, taskTitle, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskPublishTime, taskStatus);
     }
 }
