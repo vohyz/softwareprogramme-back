@@ -9,6 +9,8 @@ import java.util.Objects;
 @Table(name = "Taskdrafts", schema = "SE-Platform", catalog = "")
 public class TaskdraftsEntity {
     private int id;
+    private Integer taskCreator;
+    private Integer taskType;
     private String taskInfo;
     private Double taskBonus;
     private Timestamp taskBeginTime;
@@ -23,6 +25,26 @@ public class TaskdraftsEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "task_creator")
+    public Integer getTaskCreator() {
+        return taskCreator;
+    }
+
+    public void setTaskCreator(Integer taskCreator) {
+        this.taskCreator = taskCreator;
+    }
+
+    @Basic
+    @Column(name = "task_type")
+    public Integer getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(Integer taskType) {
+        this.taskType = taskType;
     }
 
     @Basic
@@ -81,6 +103,8 @@ public class TaskdraftsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         TaskdraftsEntity that = (TaskdraftsEntity) o;
         return id == that.id &&
+                Objects.equals(taskCreator, that.taskCreator) &&
+                Objects.equals(taskType, that.taskType) &&
                 Objects.equals(taskInfo, that.taskInfo) &&
                 Objects.equals(taskBonus, that.taskBonus) &&
                 Objects.equals(taskBeginTime, that.taskBeginTime) &&
@@ -90,6 +114,6 @@ public class TaskdraftsEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskAddtime);
+        return Objects.hash(id, taskCreator, taskType, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskAddtime);
     }
 }

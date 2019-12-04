@@ -11,10 +11,13 @@ public class TaskEntity {
     private int taskId;
     private String taskTitle;
     private String taskInfo;
+    private Integer taskType;
     private Double taskBonus;
     private Timestamp taskBeginTime;
     private Timestamp taskEndTime;
     private Date taskPublishTime;
+    private int taskPublisherId;
+    private Integer taskExecutorId;
     private String taskStatus;
 
     @Id
@@ -45,6 +48,16 @@ public class TaskEntity {
 
     public void setTaskInfo(String taskInfo) {
         this.taskInfo = taskInfo;
+    }
+
+    @Basic
+    @Column(name = "task_type")
+    public Integer getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(Integer taskType) {
+        this.taskType = taskType;
     }
 
     @Basic
@@ -88,6 +101,26 @@ public class TaskEntity {
     }
 
     @Basic
+    @Column(name = "task_publisher_id")
+    public int getTaskPublisherId() {
+        return taskPublisherId;
+    }
+
+    public void setTaskPublisherId(int taskPublisherId) {
+        this.taskPublisherId = taskPublisherId;
+    }
+
+    @Basic
+    @Column(name = "task_executor_id")
+    public Integer getTaskExecutorId() {
+        return taskExecutorId;
+    }
+
+    public void setTaskExecutorId(Integer taskExecutorId) {
+        this.taskExecutorId = taskExecutorId;
+    }
+
+    @Basic
     @Column(name = "task_status")
     public String getTaskStatus() {
         return taskStatus;
@@ -103,17 +136,20 @@ public class TaskEntity {
         if (o == null || getClass() != o.getClass()) return false;
         TaskEntity that = (TaskEntity) o;
         return taskId == that.taskId &&
+                taskPublisherId == that.taskPublisherId &&
                 Objects.equals(taskTitle, that.taskTitle) &&
                 Objects.equals(taskInfo, that.taskInfo) &&
+                Objects.equals(taskType, that.taskType) &&
                 Objects.equals(taskBonus, that.taskBonus) &&
                 Objects.equals(taskBeginTime, that.taskBeginTime) &&
                 Objects.equals(taskEndTime, that.taskEndTime) &&
                 Objects.equals(taskPublishTime, that.taskPublishTime) &&
+                Objects.equals(taskExecutorId, that.taskExecutorId) &&
                 Objects.equals(taskStatus, that.taskStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, taskTitle, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskPublishTime, taskStatus);
+        return Objects.hash(taskId, taskTitle, taskInfo, taskType, taskBonus, taskBeginTime, taskEndTime, taskPublishTime, taskPublisherId, taskExecutorId, taskStatus);
     }
 }
