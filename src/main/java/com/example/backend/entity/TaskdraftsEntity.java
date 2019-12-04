@@ -1,8 +1,6 @@
 package com.example.backend.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -13,9 +11,9 @@ public class TaskdraftsEntity {
     private Integer taskType;
     private String taskInfo;
     private Double taskBonus;
-    private Timestamp taskBeginTime;
-    private Timestamp taskEndTime;
-    private Date taskAddtime;
+    private String taskBeginTime;
+    private String taskEndTime;
+    private String taskAddtime;
 
     @Id
     @Column(name = "id")
@@ -69,31 +67,31 @@ public class TaskdraftsEntity {
 
     @Basic
     @Column(name = "task_begin_time")
-    public Timestamp getTaskBeginTime() {
+    public String getTaskBeginTime() {
         return taskBeginTime;
     }
 
-    public void setTaskBeginTime(Timestamp taskBeginTime) {
+    public void setTaskBeginTime(String taskBeginTime) {
         this.taskBeginTime = taskBeginTime;
     }
 
     @Basic
     @Column(name = "task_end_time")
-    public Timestamp getTaskEndTime() {
+    public String getTaskEndTime() {
         return taskEndTime;
     }
 
-    public void setTaskEndTime(Timestamp taskEndTime) {
+    public void setTaskEndTime(String taskEndTime) {
         this.taskEndTime = taskEndTime;
     }
 
     @Basic
     @Column(name = "task_addtime")
-    public Date getTaskAddtime() {
+    public String getTaskAddtime() {
         return taskAddtime;
     }
 
-    public void setTaskAddtime(Date taskAddtime) {
+    public void setTaskAddtime(String taskAddtime) {
         this.taskAddtime = taskAddtime;
     }
 

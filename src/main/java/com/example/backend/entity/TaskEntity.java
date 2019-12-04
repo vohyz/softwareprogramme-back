@@ -1,24 +1,33 @@
 package com.example.backend.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Task", schema = "SE-Platform", catalog = "")
+@Table(name = "Task", schema = "SE-Platform")
 public class TaskEntity {
     private int taskId;
     private String taskTitle;
     private String taskInfo;
-    private Integer taskType;
+    private String taskType;
     private Double taskBonus;
-    private Timestamp taskBeginTime;
-    private Timestamp taskEndTime;
-    private Date taskPublishTime;
-    private int taskPublisherId;
-    private Integer taskExecutorId;
+    private String taskBeginTime;
+    private String taskEndTime;
+    private String taskPublishTime;
+    private String taskPublisherName;
+    private String taskExecutorName;
     private String taskStatus;
+
+    public TaskEntity(){}
+    public TaskEntity(String userName,String taskTitle,String taskInfo,double taskBonus,String taskType,String publishTime,String endTime){
+        this.taskPublisherName=userName;
+        this.taskTitle=taskTitle;
+        this.taskInfo=taskInfo;
+        this.taskBonus=taskBonus;
+        this.taskType=taskType;
+        this.taskPublishTime=publishTime;
+        this.taskEndTime=endTime;
+    }
 
     @Id
     @Column(name = "task_id")
@@ -52,11 +61,11 @@ public class TaskEntity {
 
     @Basic
     @Column(name = "task_type")
-    public Integer getTaskType() {
+    public String getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(Integer taskType) {
+    public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
 
@@ -72,52 +81,52 @@ public class TaskEntity {
 
     @Basic
     @Column(name = "task_begin_time")
-    public Timestamp getTaskBeginTime() {
+    public String getTaskBeginTime() {
         return taskBeginTime;
     }
 
-    public void setTaskBeginTime(Timestamp taskBeginTime) {
+    public void setTaskBeginTime(String taskBeginTime) {
         this.taskBeginTime = taskBeginTime;
     }
 
     @Basic
     @Column(name = "task_end_time")
-    public Timestamp getTaskEndTime() {
+    public String getTaskEndTime() {
         return taskEndTime;
     }
 
-    public void setTaskEndTime(Timestamp taskEndTime) {
+    public void setTaskEndTime(String taskEndTime) {
         this.taskEndTime = taskEndTime;
     }
 
     @Basic
     @Column(name = "task_publish_time")
-    public Date getTaskPublishTime() {
+    public String getTaskPublishTime() {
         return taskPublishTime;
     }
 
-    public void setTaskPublishTime(Date taskPublishTime) {
+    public void setTaskPublishTime(String taskPublishTime) {
         this.taskPublishTime = taskPublishTime;
     }
 
     @Basic
-    @Column(name = "task_publisher_id")
-    public int getTaskPublisherId() {
-        return taskPublisherId;
+    @Column(name = "task_publisher_name")
+    public String getTaskPublisherName() {
+        return taskPublisherName;
     }
 
-    public void setTaskPublisherId(int taskPublisherId) {
-        this.taskPublisherId = taskPublisherId;
+    public void setTaskPublisherName(String taskPublisherName) {
+        this.taskPublisherName = taskPublisherName;
     }
 
     @Basic
-    @Column(name = "task_executor_id")
-    public Integer getTaskExecutorId() {
-        return taskExecutorId;
+    @Column(name = "task_executor_name")
+    public String getTaskExecutorName() {
+        return taskExecutorName;
     }
 
-    public void setTaskExecutorId(Integer taskExecutorId) {
-        this.taskExecutorId = taskExecutorId;
+    public void setTaskExecutorName(String taskExecutorName) {
+        this.taskExecutorName = taskExecutorName;
     }
 
     @Basic
@@ -136,7 +145,6 @@ public class TaskEntity {
         if (o == null || getClass() != o.getClass()) return false;
         TaskEntity that = (TaskEntity) o;
         return taskId == that.taskId &&
-                taskPublisherId == that.taskPublisherId &&
                 Objects.equals(taskTitle, that.taskTitle) &&
                 Objects.equals(taskInfo, that.taskInfo) &&
                 Objects.equals(taskType, that.taskType) &&
@@ -144,12 +152,13 @@ public class TaskEntity {
                 Objects.equals(taskBeginTime, that.taskBeginTime) &&
                 Objects.equals(taskEndTime, that.taskEndTime) &&
                 Objects.equals(taskPublishTime, that.taskPublishTime) &&
-                Objects.equals(taskExecutorId, that.taskExecutorId) &&
+                Objects.equals(taskPublisherName, that.taskPublisherName) &&
+                Objects.equals(taskExecutorName, that.taskExecutorName) &&
                 Objects.equals(taskStatus, that.taskStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, taskTitle, taskInfo, taskType, taskBonus, taskBeginTime, taskEndTime, taskPublishTime, taskPublisherId, taskExecutorId, taskStatus);
+        return Objects.hash(taskId, taskTitle, taskInfo, taskType, taskBonus, taskBeginTime, taskEndTime, taskPublishTime, taskPublisherName, taskExecutorName, taskStatus);
     }
 }
