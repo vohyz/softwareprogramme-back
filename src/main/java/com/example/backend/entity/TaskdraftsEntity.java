@@ -10,12 +10,13 @@ import java.util.Objects;
 public class TaskdraftsEntity {
     private int id;
     private Integer taskCreator;
-    private Integer taskType;
+    private String taskType;
     private String taskInfo;
     private Double taskBonus;
-    private Timestamp taskBeginTime;
-    private Timestamp taskEndTime;
-    private Date taskAddtime;
+    private String taskBeginTime;
+    private String taskEndTime;
+    private String taskAddtime;
+    private String taskTitle;
 
     @Id
     @Column(name = "id")
@@ -39,11 +40,11 @@ public class TaskdraftsEntity {
 
     @Basic
     @Column(name = "task_type")
-    public Integer getTaskType() {
+    public String getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(Integer taskType) {
+    public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
 
@@ -69,34 +70,44 @@ public class TaskdraftsEntity {
 
     @Basic
     @Column(name = "task_begin_time")
-    public Timestamp getTaskBeginTime() {
+    public String getTaskBeginTime() {
         return taskBeginTime;
     }
 
-    public void setTaskBeginTime(Timestamp taskBeginTime) {
+    public void setTaskBeginTime(String taskBeginTime) {
         this.taskBeginTime = taskBeginTime;
     }
 
     @Basic
     @Column(name = "task_end_time")
-    public Timestamp getTaskEndTime() {
+    public String getTaskEndTime() {
         return taskEndTime;
     }
 
-    public void setTaskEndTime(Timestamp taskEndTime) {
+    public void setTaskEndTime(String taskEndTime) {
         this.taskEndTime = taskEndTime;
     }
 
     @Basic
     @Column(name = "task_addtime")
-    public Date getTaskAddtime() {
+    public String getTaskAddtime() {
         return taskAddtime;
     }
 
-    public void setTaskAddtime(Date taskAddtime) {
+    public void setTaskAddtime(String taskAddtime) {
         this.taskAddtime = taskAddtime;
     }
 
+    @Basic
+    @Column(name = "task_title")
+    public String getTaskTitle() {
+        return taskTitle;
+    }
+
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,11 +120,12 @@ public class TaskdraftsEntity {
                 Objects.equals(taskBonus, that.taskBonus) &&
                 Objects.equals(taskBeginTime, that.taskBeginTime) &&
                 Objects.equals(taskEndTime, that.taskEndTime) &&
-                Objects.equals(taskAddtime, that.taskAddtime);
+                Objects.equals(taskAddtime, that.taskAddtime)&&
+                Objects.equals(taskTitle, that.taskTitle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, taskCreator, taskType, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskAddtime);
+        return Objects.hash(id, taskCreator, taskType, taskInfo, taskBonus, taskBeginTime, taskEndTime, taskAddtime,taskTitle);
     }
 }
