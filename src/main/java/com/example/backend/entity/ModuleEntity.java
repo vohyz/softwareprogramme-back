@@ -1,9 +1,6 @@
 package com.example.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +9,7 @@ public class ModuleEntity {
     private Integer typeId;
     private String taskType;
 
-    @Basic
+    @Id
     @Column(name = "type_id")
     public Integer getTypeId() {
         return typeId;

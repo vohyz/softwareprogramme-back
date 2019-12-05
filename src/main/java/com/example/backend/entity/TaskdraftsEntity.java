@@ -1,8 +1,6 @@
 package com.example.backend.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +15,7 @@ public class TaskdraftsEntity {
     private String taskEndTime;
     private String taskAddtime;
     private String taskTitle;
+
 
     @Id
     @Column(name = "id")
