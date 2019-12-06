@@ -27,14 +27,14 @@ public class ServletRegister {
         Map<String, Object> map = new HashMap<String, Object>();
         if(data.containsKey("user_name")&&data.containsKey("user_phone"))
         {
-            List<UserEntity> list1 = userDAO.findByUserName(data.get("user_name"));
-            List<UserEntity> list2 = userDAO.findByUserPhone(data.get("user_phone"));
-            if(!list1.isEmpty())
+            List<UserEntity> ulist1 = userDAO.findByUserName(data.get("user_name"));
+            List<UserEntity> ulist2 = userDAO.findByUserPhone(data.get("user_phone"));
+            if(!ulist1.isEmpty())
             {
                 status="wrong";
                 details="用户名已存在";
             }
-            else if(!list2.isEmpty())
+            else if(!ulist2.isEmpty())
             {
                 status="wrong";
                 details="手机号已注册";
@@ -42,8 +42,8 @@ public class ServletRegister {
             //用户名和手机号都未被占用
             else
             {
-                ConfirmcodeEntity confirmcodeEntity=confirmcodeDAO.findByUserPhone(data.get("user_phone"));
-                if(confirmcodeEntity.getCode()==data.get("user_code"))
+                List<ConfirmcodeEntity> clist=confirmcodeDAO.findByUserPhone(data.get("user_phone"));
+                if(clist.get(0).getCode()==data.get("user_code"))
                 {
                     UserEntity user=new UserEntity();
                     user.setUserName(data.get("user_name"));

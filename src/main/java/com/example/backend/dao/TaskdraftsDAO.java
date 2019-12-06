@@ -15,5 +15,6 @@ public interface TaskdraftsDAO extends JpaRepository<TaskdraftsEntity,Integer> {
             "from Task as t where t.task_creator=?1",nativeQuery = true)
     List<TaskdraftsEntity> findByTaskCreator(int id);
 
+    TaskdraftsEntity save(TaskdraftsEntity draft);
     TaskdraftsEntity findById(int id);
 }
