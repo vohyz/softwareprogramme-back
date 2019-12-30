@@ -1,9 +1,6 @@
 package com.example.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -16,9 +13,9 @@ public class TaskDraftInfoEntity {
     private Double bonus;
     private Timestamp beginTime;
     private Timestamp endTime;
-    private Integer creator;
+    private String creator;
 
-    @Basic
+    @Id
     @Column(name = "id")
     public Integer getId() {
         return id;
@@ -90,11 +87,11 @@ public class TaskDraftInfoEntity {
 
     @Basic
     @Column(name = "creator")
-    public Integer getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 

@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "TaskDraft", schema = "SE-Platform", catalog = "")
 public class TaskDraftEntity {
     private int taskId;
-    private Integer creator;
+    private String creator;
 
     @Id
     @Column(name = "task_id")
@@ -20,11 +20,11 @@ public class TaskDraftEntity {
 
     @Basic
     @Column(name = "creator")
-    public Integer getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 

@@ -59,6 +59,36 @@ public class ServletTask {
         return map;
     }
 
+    @PostMapping("/task/findTaskondetail")
+    @ResponseBody
+    public Map<String, Object> getdetailTask(@RequestBody Map<String, String> inMap) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        String status;
+        String details;
+        int id;
+        if(inMap.containsKey("task_id")){
+            id= Integer.parseInt(inMap.get("task_id"));
+            map.put("finished",taskFinishedInfoDAO.findById(id));
+            map.put("ongoing",taskOngoingInfoDAO.findById(id));
+            map.put("published",taskPublishedInfoDAO.findById(id));
+            if(map.get("finished")==null&&map.get("ongoing")==null&&map.get("published")==null){
+                status="wrong";
+                details="没有找到任务";
+            }
+            else{
+                status="right";
+                details="";
+            }
+        }
+        else{
+            status="wrong";
+            details="连接失败";
+        }
+        map.put("status",status);
+        map.put("details", details);
+        return map;
+    }
+
     @PostMapping("/task/executeTask")
     @ResponseBody
     public Map<String, Object> getExecuteTaskOnOmit(@RequestBody Map<String, String> inMap) {
@@ -207,6 +237,55 @@ public class ServletTask {
                 taskFinishedInfoEntity.setEndTime(tasktarget.getEndTime());
                 taskFinishedInfoEntity.setFinishedtime(finishedtime);
                 taskOngoingInfoDAO.delete(tasktarget);
+                status="right";
+                details="";
+            }
+        }
+        else{
+            status="wrong";
+            details="连接失败";
+        }
+        map.put("status",status);
+        map.put("details", details);
+        return map;
+    }
+
+    @PostMapping("/task/receiveTask")
+    @ResponseBody
+    public Map<String, Object> receiveTask(@RequestBody Map<String, String> inMap) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String status;
+        String details;
+        DateTime receivetime;
+
+        int taskId;
+        String userName;
+        if(inMap.containsKey("task_id")){
+            taskId= Integer.parseInt(inMap.get("task_id"));
+            TaskPublishedInfoEntity tasktarget=taskPublishedInfoDAO.findById(taskId).get(0);
+            if(tasktarget==null){
+                status="wrong";
+                details="没有找到目标任务";
+            }
+            else{
+                userName=inMap.get("user_name");
+                DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+                String receiveTime=inMap.get("receive_time");
+                receivetime = DateTime.parse(receiveTime, format);
+                TaskOngoingInfoEntity taskOngoingInfoEntity=new TaskOngoingInfoEntity();
+                taskOngoingInfoEntity.setId(tasktarget.getId());
+                taskOngoingInfoEntity.setInfo(tasktarget.getInfo());
+                taskOngoingInfoEntity.setTitle(tasktarget.getTitle());
+                taskOngoingInfoEntity.setTags(tasktarget.getTags());
+                taskOngoingInfoEntity.setBonus(tasktarget.getBonus());
+                taskOngoingInfoEntity.setPublisher(tasktarget.getPublisher());
+                taskOngoingInfoEntity.setPublishtime(tasktarget.getPublishtime());
+                taskOngoingInfoEntity.setReceiver(userName);
+                taskOngoingInfoEntity.setReceivetime(receivetime);
+                taskOngoingInfoEntity.setBeginTime(tasktarget.getBeginTime());
+                taskOngoingInfoEntity.setEndTime(tasktarget.getEndTime());
+                taskPublishedInfoDAO.delete(tasktarget);
                 status="right";
                 details="";
             }

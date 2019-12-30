@@ -1,9 +1,9 @@
 package com.example.backend.entity;
 
+import com.sun.javafx.beans.IDProperty;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "taskPublishedInfo", schema = "SE-Platform", catalog = "")
@@ -15,7 +15,7 @@ public class TaskPublishedInfoEntity {
     private Double bonus;
     private DateTime beginTime;
     private DateTime endTime;
-    private Integer publisher;
+    private String publisher;
     private DateTime publishtime;
 
     @Id
@@ -90,11 +90,11 @@ public class TaskPublishedInfoEntity {
 
     @Basic
     @Column(name = "publisher")
-    public Integer getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Integer publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
