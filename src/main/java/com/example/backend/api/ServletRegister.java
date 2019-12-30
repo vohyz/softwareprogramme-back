@@ -12,13 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
 public class ServletRegister {
     @Autowired
     UserDAO userDAO;
     ConfirmcodeDAO confirmcodeDAO;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     @ResponseBody
     public Map<String,Object> register(@RequestBody Map<String, String> data)
     {

@@ -2,11 +2,10 @@ package com.example.backend.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "Confirmcode", schema = "SE-Platform", catalog = "")
-public class ConfirmcodeEntity {
+@Table(name = "Code", schema = "SE-Platform", catalog = "")
+public class CodeEntity {
     private int id;
     private Timestamp addtime;
     private String userPhone;
@@ -56,15 +55,23 @@ public class ConfirmcodeEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ConfirmcodeEntity that = (ConfirmcodeEntity) o;
-        return id == that.id &&
-                Objects.equals(addtime, that.addtime) &&
-                Objects.equals(userPhone, that.userPhone) &&
-                Objects.equals(code, that.code);
+
+        CodeEntity that = (CodeEntity) o;
+
+        if (id != that.id) return false;
+        if (addtime != null ? !addtime.equals(that.addtime) : that.addtime != null) return false;
+        if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, addtime, userPhone, code);
+        int result = id;
+        result = 31 * result + (addtime != null ? addtime.hashCode() : 0);
+        result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        return result;
     }
 }

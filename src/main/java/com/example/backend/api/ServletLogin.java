@@ -3,10 +3,7 @@ package com.example.backend.api;
 import com.example.backend.dao.UserDAO;
 import com.example.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +14,9 @@ public class ServletLogin {
     @Autowired
     UserDAO userDAO;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ResponseBody
-    public Map<String, Object> doLogin(Map<String, String> data) {
-
+    public Map<String, Object> doLogin(@RequestBody Map<String, String> data) {
         Map<String, Object> map = new HashMap<>();
         String status = "";
         String details = "";

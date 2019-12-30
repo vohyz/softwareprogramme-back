@@ -1,164 +1,116 @@
 package com.example.backend.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Task", schema = "SE-Platform")
+@Table(name = "Task", schema = "SE-Platform", catalog = "")
 public class TaskEntity {
-    private int taskId;
-    private String taskTitle;
-    private String taskInfo;
-    private String taskType;
-    private Double taskBonus;
-    private String taskBeginTime;
-    private String taskEndTime;
-    private String taskPublishTime;
-    private String taskPublisherName;
-    private String taskExecutorName;
-    private String taskStatus;
-
-    public TaskEntity(){}
-    public TaskEntity(String userName,String taskTitle,String taskInfo,double taskBonus,String taskType,String publishTime,String endTime){
-        this.taskPublisherName=userName;
-        this.taskTitle=taskTitle;
-        this.taskInfo=taskInfo;
-        this.taskBonus=taskBonus;
-        this.taskType=taskType;
-        this.taskPublishTime=publishTime;
-        this.taskEndTime=endTime;
-    }
+    private int id;
+    private String title;
+    private String info;
+    private Integer tags;
+    private Double bonus;
+    private Timestamp beginTime;
+    private Timestamp endTime;
 
     @Id
-    @Column(name = "task_id")
-    public int getTaskId() {
-        return taskId;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
-    @Basic
-    @Column(name = "task_title")
-    public String getTaskTitle() {
-        return taskTitle;
-    }
-
-    public void setTaskTitle(String taskTitle) {
-        this.taskTitle = taskTitle;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "task_info")
-    public String getTaskInfo() {
-        return taskInfo;
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setTaskInfo(String taskInfo) {
-        this.taskInfo = taskInfo;
-    }
-
-    @Basic
-    @Column(name = "task_type")
-    public String getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(String taskType) {
-        this.taskType = taskType;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Basic
-    @Column(name = "task_bonus")
-    public Double getTaskBonus() {
-        return taskBonus;
+    @Column(name = "info")
+    public String getInfo() {
+        return info;
     }
 
-    public void setTaskBonus(Double taskBonus) {
-        this.taskBonus = taskBonus;
-    }
-
-    @Basic
-    @Column(name = "task_begin_time")
-    public String getTaskBeginTime() {
-        return taskBeginTime;
-    }
-
-    public void setTaskBeginTime(String taskBeginTime) {
-        this.taskBeginTime = taskBeginTime;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     @Basic
-    @Column(name = "task_end_time")
-    public String getTaskEndTime() {
-        return taskEndTime;
+    @Column(name = "tags")
+    public Integer getTags() {
+        return tags;
     }
 
-    public void setTaskEndTime(String taskEndTime) {
-        this.taskEndTime = taskEndTime;
-    }
-
-    @Basic
-    @Column(name = "task_publish_time")
-    public String getTaskPublishTime() {
-        return taskPublishTime;
-    }
-
-    public void setTaskPublishTime(String taskPublishTime) {
-        this.taskPublishTime = taskPublishTime;
+    public void setTags(Integer tags) {
+        this.tags = tags;
     }
 
     @Basic
-    @Column(name = "task_publisher_name")
-    public String getTaskPublisherName() {
-        return taskPublisherName;
+    @Column(name = "bonus")
+    public Double getBonus() {
+        return bonus;
     }
 
-    public void setTaskPublisherName(String taskPublisherName) {
-        this.taskPublisherName = taskPublisherName;
-    }
-
-    @Basic
-    @Column(name = "task_executor_name")
-    public String getTaskExecutorName() {
-        return taskExecutorName;
-    }
-
-    public void setTaskExecutorName(String taskExecutorName) {
-        this.taskExecutorName = taskExecutorName;
+    public void setBonus(Double bonus) {
+        this.bonus = bonus;
     }
 
     @Basic
-    @Column(name = "task_status")
-    public String getTaskStatus() {
-        return taskStatus;
+    @Column(name = "begin_time")
+    public Timestamp getBeginTime() {
+        return beginTime;
     }
 
-    public void setTaskStatus(String taskStatus) {
-        this.taskStatus = taskStatus;
+    public void setBeginTime(Timestamp beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    @Basic
+    @Column(name = "end_time")
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         TaskEntity that = (TaskEntity) o;
-        return taskId == that.taskId &&
-                Objects.equals(taskTitle, that.taskTitle) &&
-                Objects.equals(taskInfo, that.taskInfo) &&
-                Objects.equals(taskType, that.taskType) &&
-                Objects.equals(taskBonus, that.taskBonus) &&
-                Objects.equals(taskBeginTime, that.taskBeginTime) &&
-                Objects.equals(taskEndTime, that.taskEndTime) &&
-                Objects.equals(taskPublishTime, that.taskPublishTime) &&
-                Objects.equals(taskPublisherName, that.taskPublisherName) &&
-                Objects.equals(taskExecutorName, that.taskExecutorName) &&
-                Objects.equals(taskStatus, that.taskStatus);
+
+        if (id != that.id) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (info != null ? !info.equals(that.info) : that.info != null) return false;
+        if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
+        if (bonus != null ? !bonus.equals(that.bonus) : that.bonus != null) return false;
+        if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
+        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, taskTitle, taskInfo, taskType, taskBonus, taskBeginTime, taskEndTime, taskPublishTime, taskPublisherName, taskExecutorName, taskStatus);
+        int result = id;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (info != null ? info.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (bonus != null ? bonus.hashCode() : 0);
+        result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        return result;
     }
 }

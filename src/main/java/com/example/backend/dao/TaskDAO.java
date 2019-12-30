@@ -21,7 +21,7 @@ public interface TaskDAO extends JpaRepository<TaskEntity,Integer> {
             "from Task t where t.task_publisher_name=?1",nativeQuery = true)
     List<TaskEntity> findByTaskPunlisherNameOnOmit(String taskPN);
 
-    @Query(value = "select t.publish_time, t.task_status, t.task_id, t.task_title" +
+    @Query(value = "select t.publish_time, t.task_status, t.task_id, t.task_title, t.task_bonus, t.task_begin_time, t.task_end_time" +
             "from Task t where t.task_type like %?1%",nativeQuery = true)
     List<TaskEntity> findByTags(String tags);
 

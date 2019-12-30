@@ -1,21 +1,20 @@
 package com.example.backend.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "Module", schema = "SE-Platform", catalog = "")
-public class ModuleEntity {
-    private Integer typeId;
+@Table(name = "Tags", schema = "SE-Platform", catalog = "")
+public class TagsEntity {
+    private int typeId;
     private String taskType;
 
     @Id
     @Column(name = "type_id")
-    public Integer getTypeId() {
+    public int getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
 
@@ -33,13 +32,19 @@ public class ModuleEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ModuleEntity that = (ModuleEntity) o;
-        return Objects.equals(typeId, that.typeId) &&
-                Objects.equals(taskType, that.taskType);
+
+        TagsEntity that = (TagsEntity) o;
+
+        if (typeId != that.typeId) return false;
+        if (taskType != null ? !taskType.equals(that.taskType) : that.taskType != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(typeId, taskType);
+        int result = typeId;
+        result = 31 * result + (taskType != null ? taskType.hashCode() : 0);
+        return result;
     }
 }

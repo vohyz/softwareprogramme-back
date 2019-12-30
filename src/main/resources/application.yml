@@ -13,3 +13,6 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+server:
+  port: 9000

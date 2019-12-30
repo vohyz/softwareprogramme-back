@@ -2,7 +2,6 @@ package com.example.backend.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "User", schema = "SE-Platform", catalog = "")
@@ -16,6 +15,7 @@ public class UserEntity {
     private String userEmail;
     private Date userAddtime;
     private String userAvatar;
+    private Integer credits;
 
     @Id
     @Column(name = "user_id")
@@ -107,24 +107,49 @@ public class UserEntity {
         this.userAvatar = userAvatar;
     }
 
+    @Basic
+    @Column(name = "credits")
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         UserEntity that = (UserEntity) o;
-        return userId == that.userId &&
-                Objects.equals(userType, that.userType) &&
-                Objects.equals(userName, that.userName) &&
-                Objects.equals(userPassword, that.userPassword) &&
-                Objects.equals(userSex, that.userSex) &&
-                Objects.equals(userPhone, that.userPhone) &&
-                Objects.equals(userEmail, that.userEmail) &&
-                Objects.equals(userAddtime, that.userAddtime) &&
-                Objects.equals(userAvatar, that.userAvatar);
+
+        if (userId != that.userId) return false;
+        if (userType != null ? !userType.equals(that.userType) : that.userType != null) return false;
+        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
+        if (userPassword != null ? !userPassword.equals(that.userPassword) : that.userPassword != null) return false;
+        if (userSex != null ? !userSex.equals(that.userSex) : that.userSex != null) return false;
+        if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
+        if (userEmail != null ? !userEmail.equals(that.userEmail) : that.userEmail != null) return false;
+        if (userAddtime != null ? !userAddtime.equals(that.userAddtime) : that.userAddtime != null) return false;
+        if (userAvatar != null ? !userAvatar.equals(that.userAvatar) : that.userAvatar != null) return false;
+        if (credits != null ? !credits.equals(that.credits) : that.credits != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, userType, userName, userPassword, userSex, userPhone, userEmail, userAddtime, userAvatar);
+        int result = userId;
+        result = 31 * result + (userType != null ? userType.hashCode() : 0);
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (userPassword != null ? userPassword.hashCode() : 0);
+        result = 31 * result + (userSex != null ? userSex.hashCode() : 0);
+        result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
+        result = 31 * result + (userEmail != null ? userEmail.hashCode() : 0);
+        result = 31 * result + (userAddtime != null ? userAddtime.hashCode() : 0);
+        result = 31 * result + (userAvatar != null ? userAvatar.hashCode() : 0);
+        result = 31 * result + (credits != null ? credits.hashCode() : 0);
+        return result;
     }
 }
