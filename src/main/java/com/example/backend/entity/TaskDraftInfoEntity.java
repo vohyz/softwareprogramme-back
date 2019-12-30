@@ -1,6 +1,9 @@
 package com.example.backend.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
@@ -9,13 +12,13 @@ public class TaskDraftInfoEntity {
     private Integer id;
     private String title;
     private String info;
-    private Integer tags;
+    private String tags;
     private Double bonus;
     private Timestamp beginTime;
     private Timestamp endTime;
     private Integer creator;
 
-    @Id
+    @Basic
     @Column(name = "id")
     public Integer getId() {
         return id;
@@ -47,11 +50,11 @@ public class TaskDraftInfoEntity {
 
     @Basic
     @Column(name = "tags")
-    public Integer getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Integer tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 

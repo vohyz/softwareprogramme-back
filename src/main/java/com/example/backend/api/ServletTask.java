@@ -1,7 +1,12 @@
 package com.example.backend.api;
 
-import com.example.backend.dao.TaskDAO;
+import com.example.backend.dao.*;
 import com.example.backend.entity.TaskEntity;
+import com.example.backend.entity.TaskFinishedInfoEntity;
+import com.example.backend.entity.TaskPublishedInfoEntity;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +17,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ServletTask {
+    @Autowired
+    TaskDraftInfoDAO taskDraftInfoDAO;
+    @Autowired
+    TaskPublishedInfoDAO taskPublishedInfoDAO;
+    @Autowired
+    TaskFinishedInfoDAO taskFinishedInfoDAO;
+    @Autowired
+    TaskOngoingInfoDAO taskOngoingInfoDAO;
     @Autowired
     TaskDAO taskDAO;
 
@@ -24,8 +37,10 @@ public class ServletTask {
         String details;
         if(inMap.containsKey("user_name")){
             userName= inMap.get("user_name");
-            map.put("task_omitinfo",taskDAO.findByTaskPunlisherNameOnOmit(userName));
-            if(map.get("task_omitinfo")==null){
+            map.put("finished",taskFinishedInfoDAO.findByTaskPunlisherNameOnOmit(userName));
+            map.put("ongoing",taskOngoingInfoDAO.findByTaskPunlisherNameOnOmit(userName));
+            map.put("published",taskPublishedInfoDAO.findByTaskPunlisherNameOnOmit(userName));
+            if(map.get("finished")==null&&map.get("ongoing")==null&&map.get("published")==null){
                 status="wrong";
                 details="您没有发布任务";
             }
@@ -56,7 +71,10 @@ public class ServletTask {
         if(inMap.containsKey("user_name")){
             userName= inMap.get("user_name");
             taskstatus=inMap.get("task_type");
-            map.put("task_omitinfo",taskDAO.findByTaskExecutorNameAndTaskStatusOnOmit(userName, taskstatus));
+            if(taskstatus.equals("finished"))
+                map.put("task_omitinfo",taskFinishedInfoDAO.findByTaskExecutorNameOnOmit(userName));
+            else if(taskstatus.equals("ongoing"))
+                map.put("task_omitinfo",taskOngoingInfoDAO.findByTaskExecutorNameOnOmit(userName));
             if(map.get("task_omitinfo")==null){
                 status="wrong";
                 details="您没有发布任务";
@@ -85,7 +103,7 @@ public class ServletTask {
 
         String taskTitle;
         String taskInfo;
-        int taskBonus;
+        Double taskBonus;
         String taskType;
         String publishTime;
         String endTime;
@@ -94,11 +112,19 @@ public class ServletTask {
             userName= inMap.get("user_name");
             taskTitle=inMap.get("task_title");
             taskInfo=inMap.get("task_info");
-            taskBonus= Integer.parseInt(inMap.get("task_bonus"));
+            taskBonus= Double.valueOf(inMap.get("task_bonus"));
             taskType=inMap.get("task_type");
             publishTime=inMap.get("publish_time");
-            endTime=inMap.get("end_time");
-            taskDAO.save(new TaskEntity(userName,taskTitle,taskInfo,taskBonus,taskType,publishTime,endTime));
+            TaskPublishedInfoEntity taskEntity=new TaskPublishedInfoEntity();
+            taskEntity.setInfo(taskInfo);
+            taskEntity.setTitle(taskTitle);
+            taskEntity.setTags(taskType);
+            taskEntity.setBonus(taskBonus);
+            DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+            DateTime publishtime = DateTime.parse(publishTime, format);
+            taskEntity.setPublisher(userName);
+            taskEntity.setPublishtime(publishtime);
+            taskPublishedInfoDAO.save(taskEntity);
             status="right";
             details="";
         }
@@ -122,7 +148,7 @@ public class ServletTask {
         int taskId;
         if(inMap.containsKey("task_id")){
             taskId= Integer.parseInt(inMap.get("task_id"));
-            TaskEntity tasktarget=taskDAO.findByTaskId(taskId).get(0);
+            TaskEntity tasktarget=taskOngoingInfoDAO.findById(taskId).get(0);
             if(tasktarget==null){
                 status="wrong";
                 details="没有找到目标任务";
@@ -153,13 +179,15 @@ public class ServletTask {
         int taskId;
         if(inMap.containsKey("task_id")){
             taskId= Integer.parseInt(inMap.get("task_id"));
-            TaskEntity tasktarget=taskDAO.findByTaskId(taskId).get(0);
+            TaskEntity tasktarget=taskOngoingInfoDAO.findById(taskId).get(0);
             if(tasktarget==null){
                 status="wrong";
                 details="没有找到目标任务";
             }
             else{
-                tasktarget.setTaskStatus("ed");
+                TaskFinishedInfoEntity taskFinishedInfoEntity=new TaskFinishedInfoEntity();
+                taskFinishedInfoEntity.setId(tasktarget.getId());
+
                 status="right";
                 details="";
             }

@@ -1,9 +1,8 @@
 package com.example.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -11,9 +10,9 @@ import java.sql.Timestamp;
 public class TaskPublishedEntity {
     private int taskId;
     private Integer publisher;
-    private Timestamp publishtime;
+    private DateTime publishtime;
 
-    @Basic
+    @Id
     @Column(name = "task_id")
     public int getTaskId() {
         return taskId;
@@ -35,11 +34,11 @@ public class TaskPublishedEntity {
 
     @Basic
     @Column(name = "publishtime")
-    public Timestamp getPublishtime() {
+    public DateTime getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Timestamp publishtime) {
+    public void setPublishtime(DateTime publishtime) {
         this.publishtime = publishtime;
     }
 

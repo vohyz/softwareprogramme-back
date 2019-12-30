@@ -1,5 +1,7 @@
 package com.example.backend.entity;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,10 +11,10 @@ public class TaskEntity {
     private int id;
     private String title;
     private String info;
-    private Integer tags;
+    private String tags;
     private Double bonus;
-    private Timestamp beginTime;
-    private Timestamp endTime;
+    private DateTime beginTime;
+    private DateTime endTime;
 
     @Id
     @Column(name = "id")
@@ -46,11 +48,11 @@ public class TaskEntity {
 
     @Basic
     @Column(name = "tags")
-    public Integer getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Integer tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -66,21 +68,21 @@ public class TaskEntity {
 
     @Basic
     @Column(name = "begin_time")
-    public Timestamp getBeginTime() {
+    public DateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Timestamp beginTime) {
+    public void setBeginTime(DateTime beginTime) {
         this.beginTime = beginTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public Timestamp getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 

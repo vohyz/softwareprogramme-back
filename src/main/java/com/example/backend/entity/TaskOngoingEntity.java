@@ -1,9 +1,8 @@
 package com.example.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -11,9 +10,9 @@ import java.sql.Timestamp;
 public class TaskOngoingEntity {
     private int taskId;
     private Integer publisher;
-    private Timestamp publishtime;
+    private DateTime publishtime;
     private Integer receiver;
-    private Timestamp receivetime;
+    private DateTime receivetime;
 
     @Basic
     @Column(name = "task_id")
@@ -25,7 +24,7 @@ public class TaskOngoingEntity {
         this.taskId = taskId;
     }
 
-    @Basic
+    @Id
     @Column(name = "publisher")
     public Integer getPublisher() {
         return publisher;
@@ -37,11 +36,11 @@ public class TaskOngoingEntity {
 
     @Basic
     @Column(name = "publishtime")
-    public Timestamp getPublishtime() {
+    public DateTime getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Timestamp publishtime) {
+    public void setPublishtime(DateTime publishtime) {
         this.publishtime = publishtime;
     }
 
@@ -57,11 +56,11 @@ public class TaskOngoingEntity {
 
     @Basic
     @Column(name = "receivetime")
-    public Timestamp getReceivetime() {
+    public DateTime getReceivetime() {
         return receivetime;
     }
 
-    public void setReceivetime(Timestamp receivetime) {
+    public void setReceivetime(DateTime receivetime) {
         this.receivetime = receivetime;
     }
 

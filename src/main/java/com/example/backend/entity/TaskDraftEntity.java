@@ -1,9 +1,6 @@
 package com.example.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "TaskDraft", schema = "SE-Platform", catalog = "")
@@ -11,7 +8,7 @@ public class TaskDraftEntity {
     private int taskId;
     private Integer creator;
 
-    @Basic
+    @Id
     @Column(name = "task_id")
     public int getTaskId() {
         return taskId;
