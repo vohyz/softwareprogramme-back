@@ -1,5 +1,7 @@
 package com.example.backend.entity;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,15 +11,15 @@ public class TaskFinishedInfoEntity {
     private Integer id;
     private String title;
     private String info;
-    private Integer tags;
+    private String tags;
     private Double bonus;
-    private Timestamp beginTime;
-    private Timestamp endTime;
+    private DateTime beginTime;
+    private DateTime endTime;
     private Integer publisher;
-    private Timestamp publishtime;
+    private DateTime publishtime;
     private Integer receiver;
-    private Timestamp receivetime;
-    private Timestamp finishedtime;
+    private DateTime receivetime;
+    private DateTime finishedtime;
 
     @Id
     @Column(name = "id")
@@ -51,11 +53,11 @@ public class TaskFinishedInfoEntity {
 
     @Basic
     @Column(name = "tags")
-    public Integer getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Integer tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -71,21 +73,21 @@ public class TaskFinishedInfoEntity {
 
     @Basic
     @Column(name = "begin_time")
-    public Timestamp getBeginTime() {
+    public DateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Timestamp beginTime) {
+    public void setBeginTime(DateTime beginTime) {
         this.beginTime = beginTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public Timestamp getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -101,11 +103,11 @@ public class TaskFinishedInfoEntity {
 
     @Basic
     @Column(name = "publishtime")
-    public Timestamp getPublishtime() {
+    public DateTime getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Timestamp publishtime) {
+    public void setPublishtime(DateTime publishtime) {
         this.publishtime = publishtime;
     }
 
@@ -121,21 +123,21 @@ public class TaskFinishedInfoEntity {
 
     @Basic
     @Column(name = "receivetime")
-    public Timestamp getReceivetime() {
+    public DateTime getReceivetime() {
         return receivetime;
     }
 
-    public void setReceivetime(Timestamp receivetime) {
+    public void setReceivetime(DateTime receivetime) {
         this.receivetime = receivetime;
     }
 
     @Basic
     @Column(name = "finishedtime")
-    public Timestamp getFinishedtime() {
+    public DateTime getFinishedtime() {
         return finishedtime;
     }
 
-    public void setFinishedtime(Timestamp finishedtime) {
+    public void setFinishedtime(DateTime finishedtime) {
         this.finishedtime = finishedtime;
     }
 

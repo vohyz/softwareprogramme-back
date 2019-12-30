@@ -1,9 +1,8 @@
 package com.example.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -11,12 +10,12 @@ import java.sql.Timestamp;
 public class TaskFinishedEntity {
     private int taskId;
     private Integer publisher;
-    private Timestamp publishtime;
+    private DateTime publishtime;
     private Integer receiver;
-    private Timestamp receivetime;
-    private Timestamp finishedtime;
+    private DateTime receivetime;
+    private DateTime finishedtime;
 
-    @Basic
+    @Id
     @Column(name = "task_id")
     public int getTaskId() {
         return taskId;
@@ -38,11 +37,11 @@ public class TaskFinishedEntity {
 
     @Basic
     @Column(name = "publishtime")
-    public Timestamp getPublishtime() {
+    public DateTime getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Timestamp publishtime) {
+    public void setPublishtime(DateTime publishtime) {
         this.publishtime = publishtime;
     }
 
@@ -58,21 +57,21 @@ public class TaskFinishedEntity {
 
     @Basic
     @Column(name = "receivetime")
-    public Timestamp getReceivetime() {
+    public DateTime getReceivetime() {
         return receivetime;
     }
 
-    public void setReceivetime(Timestamp receivetime) {
+    public void setReceivetime(DateTime receivetime) {
         this.receivetime = receivetime;
     }
 
     @Basic
     @Column(name = "finishedtime")
-    public Timestamp getFinishedtime() {
+    public DateTime getFinishedtime() {
         return finishedtime;
     }
 
-    public void setFinishedtime(Timestamp finishedtime) {
+    public void setFinishedtime(DateTime finishedtime) {
         this.finishedtime = finishedtime;
     }
 

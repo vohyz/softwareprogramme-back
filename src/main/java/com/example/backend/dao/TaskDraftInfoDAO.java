@@ -10,4 +10,5 @@ import java.util.List;
 public interface TaskDraftInfoDAO extends JpaRepository<TaskDraftInfoDAO,Integer> {
     List<TaskDraftInfoEntity> findByCreator(int id);
     TaskDraftInfoEntity findById(int id);
+    TaskDraftInfoEntity save(TaskDraftInfoEntity taskDraftInfoEntity);
 }

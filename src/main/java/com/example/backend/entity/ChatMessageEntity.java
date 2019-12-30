@@ -1,14 +1,15 @@
 package com.example.backend.entity;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "ChatMessage", schema = "SE-Platform", catalog = "")
 public class ChatMessageEntity {
     private int id;
     private String content;
-    private Timestamp time;
+    private DateTime time;
     private int sender;
     private Integer receiver;
 
@@ -34,11 +35,11 @@ public class ChatMessageEntity {
 
     @Basic
     @Column(name = "time")
-    public Timestamp getTime() {
+    public DateTime getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(DateTime time) {
         this.time = time;
     }
 

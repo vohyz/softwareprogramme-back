@@ -1,7 +1,13 @@
 package com.example.backend.entity;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "taskDraftInfo", schema = "SE-Platform", catalog = "")
@@ -9,10 +15,10 @@ public class TaskDraftInfoEntity {
     private Integer id;
     private String title;
     private String info;
-    private Integer tags;
+    private String tags;
     private Double bonus;
-    private Timestamp beginTime;
-    private Timestamp endTime;
+    private DateTime beginTime;
+    private DateTime endTime;
     private Integer creator;
 
     @Id
@@ -47,11 +53,11 @@ public class TaskDraftInfoEntity {
 
     @Basic
     @Column(name = "tags")
-    public Integer getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Integer tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -67,21 +73,21 @@ public class TaskDraftInfoEntity {
 
     @Basic
     @Column(name = "begin_time")
-    public Timestamp getBeginTime() {
+    public DateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Timestamp beginTime) {
+    public void setBeginTime(DateTime beginTime) {
         this.beginTime = beginTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public Timestamp getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 

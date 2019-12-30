@@ -1,7 +1,9 @@
 package com.example.backend.entity;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+
 
 @Entity
 @Table(name = "Notice", schema = "SE-Platform", catalog = "")
@@ -9,7 +11,7 @@ public class NoticeEntity {
     private int id;
     private Integer aimId;
     private String content;
-    private Timestamp time;
+    private DateTime time;
 
     @Id
     @Column(name = "id")
@@ -43,11 +45,11 @@ public class NoticeEntity {
 
     @Basic
     @Column(name = "time")
-    public Timestamp getTime() {
+    public DateTime getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(DateTime time) {
         this.time = time;
     }
 

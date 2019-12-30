@@ -4,6 +4,7 @@ import com.example.backend.dao.HistoryDAO;
 import com.example.backend.dao.UserDAO;
 import com.example.backend.entity.HistoryEntity;
 import com.example.backend.entity.UserEntity;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +32,12 @@ public class ServletHistory {
         Map<String, Object> map = new HashMap<String, Object>();
 
         if(data.containsKey("user_name")) {
-        List<UserEntity> userList=userDAO.findByUserName(data.get("user_name"));
-        historyDAO.save(new HistoryEntity(Integer.parseInt(data.get("task_id")),userList.get(0).getUserId(),new DateTime()));
+       // List<UserEntity> userList=userDAO.findByUserName(data.get("user_name"));
+        HistoryEntity historyEntity=new HistoryEntity();
+        historyEntity.setTaskId(Integer.parseInt(data.get("task_id")));
+        historyEntity.setUserName(data.get("user_name"));
+        historyEntity.setTime(new DateTime());
+        historyDAO.save(historyEntity);
         status="right";
         details="";
         }

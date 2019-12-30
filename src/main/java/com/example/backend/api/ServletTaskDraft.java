@@ -6,6 +6,9 @@ import com.example.backend.dao.TaskDraftInfoDAO;
 import com.example.backend.entity.TaskDraftEntity;
 import com.example.backend.entity.TaskDraftInfoEntity;
 import com.example.backend.entity.TaskEntity;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +24,8 @@ public class ServletTaskDraft {
     TaskDraftDAO taskDraftDAO;
     TaskDraftInfoDAO taskDraftInfoDAO;
 
+    DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+
     @PostMapping("/getUserDrafts")
     @ResponseBody
     public Map<String,Object> getUserDrafts(@RequestBody Map<String, String> data)
@@ -31,7 +36,7 @@ public class ServletTaskDraft {
 
         if(data.containsKey("user_id"))
         {
-            List<TaskDraftInfoEntity> taskDraftInfoList=taskDraftInfoDAO.findByCreator(Integer.parseInt(data.get("user_id")));
+            List<TaskDraftInfoEntity> taskDraftInfoList=taskDraftInfoDAO.findByCreator(data.get("user_name"));
             if(taskDraftInfoList.size()>0) {
                 status = "right";
                 details = "";
@@ -63,14 +68,14 @@ public class ServletTaskDraft {
         if(data.containsKey("task_id"))
         {
             TaskDraftInfoEntity draft=taskDraftInfoDAO.findById(Integer.parseInt(data.get("task_id")));
-            draft.setBeginTime(data.get("publish_time"));
+            draft.setBeginTime(DateTime.parse(data.get("begin_time"),format));
             draft.setInfo(data.get("task_info"));
-            draft.setEndTime(data.get("end_time"));
+            draft.setEndTime(DateTime.parse(data.get("end_time"),format));
             draft.setBonus(Double.parseDouble(data.get("task_bonus")));
-            draft.setTaskType(data.get("task_type"));
+            draft.setTags(data.get("task_tags"));
             draft.setTitle(data.get("task_title"));
 
-            taskDAO.save(draft);
+            taskDraftInfoDAO.save(draft);
             status="right";
             details="编辑成功";
         }
@@ -78,18 +83,18 @@ public class ServletTaskDraft {
         {
             if(data.containsKey("task_title"))
             {
-                TaskEntity draft=new TaskEntity();
-                draft.setBeginTime(data.get("publish_time"));
+                TaskDraftInfoEntity draft=new TaskDraftInfoEntity();
+                draft.setBeginTime(DateTime.parse(data.get("begin_time"),format));
                 draft.setInfo(data.get("task_info"));
-                draft.setEndTime(data.get("end_time"));
+                draft.setEndTime(DateTime.parse(data.get("end_time"),format));
                 draft.setBonus(Double.parseDouble(data.get("task_bonus")));
-                draft.setType(data.get("task_type"));
+                draft.setTags(data.get("task_tags"));
                 draft.setTitle(data.get("task_title"));
-                draft.setCreator(Integer.parseInt(data.get("user_id")));
+                draft.setCreator(data.get("user_name"));
 
                 status="right";
                 details="添加了一条新草稿";
-                taskDAO.save(draft);
+                taskDraftInfoDAO.save(draft);
             }
             else
             {

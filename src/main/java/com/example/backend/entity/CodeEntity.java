@@ -1,13 +1,15 @@
 package com.example.backend.entity;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+
 
 @Entity
 @Table(name = "Code", schema = "SE-Platform", catalog = "")
 public class CodeEntity {
     private int id;
-    private Timestamp addtime;
+    private DateTime addtime;
     private String userPhone;
     private String code;
 
@@ -23,11 +25,11 @@ public class CodeEntity {
 
     @Basic
     @Column(name = "addtime")
-    public Timestamp getAddtime() {
+    public DateTime getAddtime() {
         return addtime;
     }
 
-    public void setAddtime(Timestamp addtime) {
+    public void setAddtime(DateTime addtime) {
         this.addtime = addtime;
     }
 
