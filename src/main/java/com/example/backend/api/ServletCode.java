@@ -4,10 +4,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.example.backend.dao.CodeDAO;
 import com.example.backend.entity.CodeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +15,7 @@ public class ServletCode {
     @Autowired
     CodeDAO codeDAO;
 
-    @GetMapping("/getCode")
+    @PostMapping("/getCode")
     @ResponseBody
     public Map<String, Object> getCode(@RequestBody Map<String, String> data) throws ClientException, InterruptedException {
         Map<String, Object> map = new HashMap<String, Object>();

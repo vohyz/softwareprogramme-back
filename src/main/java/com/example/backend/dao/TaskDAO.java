@@ -11,7 +11,7 @@ public interface TaskDAO extends JpaRepository<TaskEntity,Integer> {
     List<TaskEntity> findByTaskPublisherName(String taskPN);
     List<TaskEntity> findByTaskExecutorName(String taskEN);
     List<TaskEntity> findByTaskExecutorNameAndTaskStatus(String taskEN,String taskStatus);
-    List<TaskEntity> findByTaskId(int taskId);
+    List<TaskEntity> findById(int taskId);
 
     @Query(value = "select t.publish_time, t.task_status, t.task_executor_name, t.task_id " +
             "from Task t where t.task_executor_name=?1 and t.task_status=?2",nativeQuery = true)

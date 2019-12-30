@@ -13,7 +13,7 @@ import java.util.List;
 public interface TaskDraftDAO extends JpaRepository<TaskDraftEntity,Integer> {
     @Query(value = "select t.id, t.task_type, t.task_begin_time, t.task_end_time, t.task_addtime " +
             "from Task as t where t.creator=?1",nativeQuery = true)
-    List<TaskDraftEntity> findByTaskCreator(int id);
+    List<TaskDraftEntity> findByCreator(int id);
 
     TaskDraftEntity save(TaskDraftEntity draft);
     TaskDraftEntity findById(int id);

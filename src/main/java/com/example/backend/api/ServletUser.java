@@ -13,7 +13,7 @@ public class ServletUser {
     @Autowired
     UserDAO userDAO;
 
-    @GetMapping("/getUserAvatar")
+    @PostMapping("/getUserAvatar")
     @ResponseBody
     public Map<String,Object> getUserAvatar(@RequestBody Map<String, String> data)
     {

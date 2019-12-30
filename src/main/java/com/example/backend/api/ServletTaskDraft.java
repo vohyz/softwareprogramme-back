@@ -1,7 +1,11 @@
 package com.example.backend.api;
 
+import com.example.backend.dao.TaskDAO;
 import com.example.backend.dao.TaskDraftDAO;
+import com.example.backend.dao.TaskDraftInfoDAO;
 import com.example.backend.entity.TaskDraftEntity;
+import com.example.backend.entity.TaskDraftInfoEntity;
+import com.example.backend.entity.TaskEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +17,11 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ServletTaskDraft {
     @Autowired
+    TaskDAO taskDAO;
     TaskDraftDAO taskDraftDAO;
+    TaskDraftInfoDAO taskDraftInfoDAO;
 
-    @GetMapping("/getUserDrafts")
+    @PostMapping("/getUserDrafts")
     @ResponseBody
     public Map<String,Object> getUserDrafts(@RequestBody Map<String, String> data)
     {
@@ -25,8 +31,8 @@ public class ServletTaskDraft {
 
         if(data.containsKey("user_id"))
         {
-            List<TaskDraftEntity> taskdraftsList=taskDraftDAO.findByTaskCreator(Integer.parseInt(data.get("user_id")));
-            if(taskdraftsList.size()>0) {
+            List<TaskDraftInfoEntity> taskDraftInfoList=taskDraftInfoDAO.findByCreator(Integer.parseInt(data.get("user_id")));
+            if(taskDraftInfoList.size()>0) {
                 status = "right";
                 details = "";
             }
@@ -34,7 +40,7 @@ public class ServletTaskDraft {
                 status = "wrong";
                 details="草稿箱为空";
             }
-            map.put("List",taskdraftsList);
+            map.put("List",taskDraftInfoList);
         }
         else
         {
@@ -46,7 +52,7 @@ public class ServletTaskDraft {
         return map;
     }
 
-    @GetMapping("/modifyDrafts")
+    @PostMapping("/modifyDrafts")
     @ResponseBody
     public Map<String,Object> modifyDrafts(@RequestBody Map<String, String> data)
     {
@@ -56,15 +62,15 @@ public class ServletTaskDraft {
 
         if(data.containsKey("task_id"))
         {
-            TaskDraftEntity draft=taskDraftDAO.findById(Integer.parseInt(data.get("user_id")));
-            draft.setTaskBeginTime(data.get("publish_time"));
-            draft.setTaskInfo(data.get("task_info"));
-            draft.setTaskEndTime(data.get("end_time"));
-            draft.setTaskBonus(Double.parseDouble(data.get("task_bonus")));
+            TaskDraftInfoEntity draft=taskDraftInfoDAO.findById(Integer.parseInt(data.get("task_id")));
+            draft.setBeginTime(data.get("publish_time"));
+            draft.setInfo(data.get("task_info"));
+            draft.setEndTime(data.get("end_time"));
+            draft.setBonus(Double.parseDouble(data.get("task_bonus")));
             draft.setTaskType(data.get("task_type"));
-            draft.setTaskTitle(data.get("task_title"));
+            draft.setTitle(data.get("task_title"));
 
-            taskdraftsDAO.save(draft);
+            taskDAO.save(draft);
             status="right";
             details="编辑成功";
         }
@@ -72,18 +78,18 @@ public class ServletTaskDraft {
         {
             if(data.containsKey("task_title"))
             {
-                TaskdraftsEntity draft=new TaskdraftsEntity();
-                draft.setTaskBeginTime(data.get("publish_time"));
-                draft.setTaskInfo(data.get("task_info"));
-                draft.setTaskEndTime(data.get("end_time"));
-                draft.setTaskBonus(Double.parseDouble(data.get("task_bonus")));
-                draft.setTaskType(data.get("task_type"));
-                draft.setTaskTitle(data.get("task_title"));
-                draft.setTaskCreator(Integer.parseInt(data.get("user_id")));
+                TaskEntity draft=new TaskEntity();
+                draft.setBeginTime(data.get("publish_time"));
+                draft.setInfo(data.get("task_info"));
+                draft.setEndTime(data.get("end_time"));
+                draft.setBonus(Double.parseDouble(data.get("task_bonus")));
+                draft.setType(data.get("task_type"));
+                draft.setTitle(data.get("task_title"));
+                draft.setCreator(Integer.parseInt(data.get("user_id")));
 
                 status="right";
                 details="添加了一条新草稿";
-                taskdraftsDAO.save(draft);
+                taskDAO.save(draft);
             }
             else
             {
