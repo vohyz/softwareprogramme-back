@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskDraftInfoDAO extends JpaRepository<TaskDraftInfoDAO,Integer> {
-    List<TaskDraftInfoEntity> findByCreator(int id);
+public interface TaskDraftInfoDAO extends JpaRepository<TaskDraftInfoEntity,Integer> {
+    List<TaskDraftInfoEntity> findByCreator(String name);
     TaskDraftInfoEntity findById(int id);
     TaskDraftInfoEntity save(TaskDraftInfoEntity taskDraftInfoEntity);
 }

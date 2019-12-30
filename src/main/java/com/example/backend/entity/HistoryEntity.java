@@ -10,8 +10,10 @@ import javax.persistence.*;
 @IdClass(HistoryEntityPK.class)
 public class HistoryEntity {
     private int taskId;
-    private int userId;
+
     private DateTime time;
+    private String userName;
+
 
     @Id
     @Column(name = "task_id")
@@ -24,13 +26,13 @@ public class HistoryEntity {
     }
 
     @Id
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
+    @Column(name = "user_name")
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Basic
@@ -51,7 +53,7 @@ public class HistoryEntity {
         HistoryEntity that = (HistoryEntity) o;
 
         if (taskId != that.taskId) return false;
-        if (userId != that.userId) return false;
+        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (time != null ? !time.equals(that.time) : that.time != null) return false;
 
         return true;
@@ -60,7 +62,7 @@ public class HistoryEntity {
     @Override
     public int hashCode() {
         int result = taskId;
-        result = 31 * result + userId;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }

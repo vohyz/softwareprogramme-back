@@ -3,13 +3,12 @@ package com.example.backend.entity;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "TaskPublished", schema = "SE-Platform", catalog = "")
 public class TaskPublishedEntity {
     private int taskId;
-    private Integer publisher;
+    private String publisher;
     private DateTime publishtime;
 
     @Id
@@ -24,11 +23,11 @@ public class TaskPublishedEntity {
 
     @Basic
     @Column(name = "publisher")
-    public Integer getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Integer publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 

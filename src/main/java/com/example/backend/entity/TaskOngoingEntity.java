@@ -3,18 +3,17 @@ package com.example.backend.entity;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "TaskOngoing", schema = "SE-Platform", catalog = "")
 public class TaskOngoingEntity {
     private int taskId;
-    private Integer publisher;
+    private String publisher;
     private DateTime publishtime;
-    private Integer receiver;
+    private String receiver;
     private DateTime receivetime;
 
-    @Basic
+    @Id
     @Column(name = "task_id")
     public int getTaskId() {
         return taskId;
@@ -24,13 +23,13 @@ public class TaskOngoingEntity {
         this.taskId = taskId;
     }
 
-    @Id
+    @Basic
     @Column(name = "publisher")
-    public Integer getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Integer publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
@@ -46,11 +45,11 @@ public class TaskOngoingEntity {
 
     @Basic
     @Column(name = "receiver")
-    public Integer getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Integer receiver) {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 

@@ -3,7 +3,6 @@ package com.example.backend.entity;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "taskOngoingInfo", schema = "SE-Platform", catalog = "")
@@ -15,9 +14,9 @@ public class TaskOngoingInfoEntity {
     private Double bonus;
     private DateTime beginTime;
     private DateTime endTime;
-    private Integer publisher;
+    private String publisher;
     private DateTime publishtime;
-    private Integer receiver;
+    private String receiver;
     private DateTime receivetime;
 
     @Id
@@ -92,11 +91,11 @@ public class TaskOngoingInfoEntity {
 
     @Basic
     @Column(name = "publisher")
-    public Integer getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Integer publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
@@ -112,11 +111,11 @@ public class TaskOngoingInfoEntity {
 
     @Basic
     @Column(name = "receiver")
-    public Integer getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Integer receiver) {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 

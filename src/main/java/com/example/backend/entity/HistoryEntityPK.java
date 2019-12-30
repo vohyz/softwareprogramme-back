@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class HistoryEntityPK implements Serializable {
     private int taskId;
-    private int userId;
+    private String userName;
 
     @Column(name = "task_id")
     @Id
@@ -18,14 +18,14 @@ public class HistoryEntityPK implements Serializable {
         this.taskId = taskId;
     }
 
-    @Column(name = "user_id")
+    @Column(name = "user_name")
     @Id
-    public int getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class HistoryEntityPK implements Serializable {
         HistoryEntityPK that = (HistoryEntityPK) o;
 
         if (taskId != that.taskId) return false;
-        if (userId != that.userId) return false;
+        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
 
         return true;
     }
@@ -44,7 +44,7 @@ public class HistoryEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = taskId;
-        result = 31 * result + userId;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
         return result;
     }
 }

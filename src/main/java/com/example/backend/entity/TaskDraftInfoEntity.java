@@ -1,12 +1,8 @@
 package com.example.backend.entity;
 
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -19,7 +15,8 @@ public class TaskDraftInfoEntity {
     private Double bonus;
     private DateTime beginTime;
     private DateTime endTime;
-    private Integer creator;
+    private String creator;
+
 
     @Id
     @Column(name = "id")
@@ -93,11 +90,11 @@ public class TaskDraftInfoEntity {
 
     @Basic
     @Column(name = "creator")
-    public Integer getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
