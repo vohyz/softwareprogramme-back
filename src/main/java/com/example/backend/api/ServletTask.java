@@ -3,6 +3,7 @@ package com.example.backend.api;
 import com.example.backend.dao.*;
 import com.example.backend.entity.TaskEntity;
 import com.example.backend.entity.TaskFinishedInfoEntity;
+import com.example.backend.entity.TaskOngoingInfoEntity;
 import com.example.backend.entity.TaskPublishedInfoEntity;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -28,7 +29,7 @@ public class ServletTask {
     @Autowired
     TaskDAO taskDAO;
 
-    @GetMapping("/task/publishedTask")
+    @PostMapping("/task/publishedTask")
     @ResponseBody
     public Map<String, Object> getPubilshedTask(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -58,7 +59,7 @@ public class ServletTask {
         return map;
     }
 
-    @GetMapping("/task/executeTask")
+    @PostMapping("/task/executeTask")
     @ResponseBody
     public Map<String, Object> getExecuteTaskOnOmit(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -93,7 +94,7 @@ public class ServletTask {
         return map;
     }
 
-    @GetMapping("/task/publishTask")
+    @PostMapping("/task/publishTask")
     @ResponseBody
     public Map<String, Object> publishTask(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -115,6 +116,7 @@ public class ServletTask {
             taskBonus= Double.valueOf(inMap.get("task_bonus"));
             taskType=inMap.get("task_type");
             publishTime=inMap.get("publish_time");
+            endTime=inMap.get("end_time");
             TaskPublishedInfoEntity taskEntity=new TaskPublishedInfoEntity();
             taskEntity.setInfo(taskInfo);
             taskEntity.setTitle(taskTitle);
@@ -122,8 +124,10 @@ public class ServletTask {
             taskEntity.setBonus(taskBonus);
             DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
             DateTime publishtime = DateTime.parse(publishTime, format);
+            DateTime endtime=DateTime.parse(endTime, format);
             taskEntity.setPublisher(userName);
             taskEntity.setPublishtime(publishtime);
+            taskEntity.setEndTime(endtime);
             taskPublishedInfoDAO.save(taskEntity);
             status="right";
             details="";
@@ -137,7 +141,7 @@ public class ServletTask {
         return map;
     }
 
-    @GetMapping("/task/deleteTask")
+    @PostMapping("/task/deleteTask")
     @ResponseBody
     public Map<String, Object> deleteTask(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -148,13 +152,13 @@ public class ServletTask {
         int taskId;
         if(inMap.containsKey("task_id")){
             taskId= Integer.parseInt(inMap.get("task_id"));
-            TaskEntity tasktarget=taskOngoingInfoDAO.findById(taskId).get(0);
+            TaskOngoingInfoEntity tasktarget=taskOngoingInfoDAO.findById(taskId).get(0);
             if(tasktarget==null){
                 status="wrong";
                 details="没有找到目标任务";
             }
             else{
-                taskDAO.delete(tasktarget);
+                taskOngoingInfoDAO.delete(tasktarget);
                 status="right";
                 details="";
             }
@@ -168,26 +172,41 @@ public class ServletTask {
         return map;
     }
 
-    @GetMapping("/task/completeTask")
+    @PostMapping("/task/completeTask")
     @ResponseBody
     public Map<String, Object> completeTask(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
 
         String status;
         String details;
+        DateTime finishedtime;
 
         int taskId;
         if(inMap.containsKey("task_id")){
             taskId= Integer.parseInt(inMap.get("task_id"));
-            TaskEntity tasktarget=taskOngoingInfoDAO.findById(taskId).get(0);
+            TaskOngoingInfoEntity tasktarget=taskOngoingInfoDAO.findById(taskId).get(0);
             if(tasktarget==null){
                 status="wrong";
                 details="没有找到目标任务";
             }
             else{
+                DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+                String finishedTime=inMap.get("finished_time");
+                finishedtime = DateTime.parse(finishedTime, format);
                 TaskFinishedInfoEntity taskFinishedInfoEntity=new TaskFinishedInfoEntity();
                 taskFinishedInfoEntity.setId(tasktarget.getId());
-
+                taskFinishedInfoEntity.setInfo(tasktarget.getInfo());
+                taskFinishedInfoEntity.setTitle(tasktarget.getTitle());
+                taskFinishedInfoEntity.setTags(tasktarget.getTags());
+                taskFinishedInfoEntity.setBonus(tasktarget.getBonus());
+                taskFinishedInfoEntity.setPublisher(tasktarget.getPublisher());
+                taskFinishedInfoEntity.setPublishtime(tasktarget.getPublishtime());
+                taskFinishedInfoEntity.setReceiver(tasktarget.getReceiver());
+                taskFinishedInfoEntity.setReceivetime(tasktarget.getReceivetime());
+                taskFinishedInfoEntity.setBeginTime(tasktarget.getBeginTime());
+                taskFinishedInfoEntity.setEndTime(tasktarget.getEndTime());
+                taskFinishedInfoEntity.setFinishedtime(finishedtime);
+                taskOngoingInfoDAO.delete(tasktarget);
                 status="right";
                 details="";
             }
@@ -201,7 +220,7 @@ public class ServletTask {
         return map;
     }
 
-    @GetMapping("/task/findTaskByTags")
+    @PostMapping("/task/findTaskByTags")
     @ResponseBody
     public Map<String, Object> getTaskByTags(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -212,7 +231,7 @@ public class ServletTask {
         String tags;
         if(inMap.containsKey("tags")){
             tags= inMap.get("tags");
-            map.put("task_omitinfo",taskDAO.findByTags(tags));
+            map.put("task_omitinfo",taskPublishedInfoDAO.findByTagsonomit(tags));
             if(map.get("task_omitinfo")==null){
                 status="wrong";
                 details="没有符合的任务";
@@ -231,7 +250,7 @@ public class ServletTask {
         return map;
     }
 
-    @GetMapping("/task/search")
+    @PostMapping("/task/search")
     @ResponseBody
     public Map<String, Object> search(@RequestBody Map<String, String> inMap) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -242,7 +261,7 @@ public class ServletTask {
         String keyword;
         if(inMap.containsKey("keyword")){
             keyword= inMap.get("keyword");
-            map.put("task_omitinfo",taskDAO.Search(keyword));
+            map.put("task_omitinfo",taskPublishedInfoDAO.Search(keyword));
             if(map.get("task_omitinfo")==null){
                 status="wrong";
                 details="没有符合的任务";

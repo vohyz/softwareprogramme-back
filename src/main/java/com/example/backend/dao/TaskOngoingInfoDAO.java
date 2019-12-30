@@ -12,11 +12,11 @@ import java.util.List;
 public interface TaskOngoingInfoDAO extends JpaRepository<TaskOngoingInfoEntity,Integer> {
     @Query(value = "select t.publishtime, t.receiver, t.id " +
             "from taskOngoingInfo t where t.publisher=?1",nativeQuery = true)
-    List<TaskEntity> findByTaskPunlisherNameOnOmit(String taskPN);
+    List<TaskOngoingInfoEntity> findByTaskPunlisherNameOnOmit(String taskPN);
 
     @Query(value = "select t.publishtime, t.receiver, t.id " +
             "from taskOngoingInfo t where t.receiver=?1",nativeQuery = true)
-    List<TaskEntity> findByTaskExecutorNameOnOmit(String taskEN);
+    List<TaskOngoingInfoEntity> findByTaskExecutorNameOnOmit(String taskEN);
 
-    List<TaskEntity> findById(int id);
+    List<TaskOngoingInfoEntity> findById(int id);
 }
