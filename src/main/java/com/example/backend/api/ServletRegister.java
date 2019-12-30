@@ -1,8 +1,8 @@
 package com.example.backend.api;
 
-import com.example.backend.dao.ConfirmcodeDAO;
+import com.example.backend.dao.CodeDAO;
 import com.example.backend.dao.UserDAO;
-import com.example.backend.entity.ConfirmcodeEntity;
+import com.example.backend.entity.CodeEntity;
 import com.example.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class ServletRegister {
     @Autowired
     UserDAO userDAO;
-    ConfirmcodeDAO confirmcodeDAO;
+    CodeDAO codeDAO;
 
     @PostMapping("/register")
     @ResponseBody
@@ -41,7 +41,7 @@ public class ServletRegister {
             //用户名和手机号都未被占用
             else
             {
-                List<ConfirmcodeEntity> clist=confirmcodeDAO.findByUserPhone(data.get("user_phone"));
+                List<CodeEntity> clist=codeDAO.findByUserPhone(data.get("user_phone"));
                 if(clist.get(0).getCode()==data.get("user_code"))
                 {
                     UserEntity user=new UserEntity();

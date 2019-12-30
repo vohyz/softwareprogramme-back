@@ -1,7 +1,7 @@
 package com.example.backend.api;
 
-import com.example.backend.dao.TaskdraftsDAO;
-import com.example.backend.entity.TaskdraftsEntity;
+import com.example.backend.dao.TaskDraftDAO;
+import com.example.backend.entity.TaskDraftEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +11,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class ServletTaskdrafts {
+public class ServletTaskDraft {
     @Autowired
-    TaskdraftsDAO taskdraftsDAO;
+    TaskDraftDAO taskDraftDAO;
 
     @GetMapping("/getUserDrafts")
     @ResponseBody
@@ -25,7 +25,7 @@ public class ServletTaskdrafts {
 
         if(data.containsKey("user_id"))
         {
-            List<TaskdraftsEntity> taskdraftsList=taskdraftsDAO.findByTaskCreator(Integer.parseInt(data.get("user_id")));
+            List<TaskDraftEntity> taskdraftsList=taskDraftDAO.findByTaskCreator(Integer.parseInt(data.get("user_id")));
             if(taskdraftsList.size()>0) {
                 status = "right";
                 details = "";
@@ -56,7 +56,7 @@ public class ServletTaskdrafts {
 
         if(data.containsKey("task_id"))
         {
-            TaskdraftsEntity draft=taskdraftsDAO.findById(Integer.parseInt(data.get("user_id")));
+            TaskDraftEntity draft=taskDraftDAO.findById(Integer.parseInt(data.get("user_id")));
             draft.setTaskBeginTime(data.get("publish_time"));
             draft.setTaskInfo(data.get("task_info"));
             draft.setTaskEndTime(data.get("end_time"));

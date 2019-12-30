@@ -1,8 +1,8 @@
 package com.example.backend.api;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.example.backend.dao.ConfirmcodeDAO;
-import com.example.backend.entity.ConfirmcodeEntity;
+import com.example.backend.dao.CodeDAO;
+import com.example.backend.entity.CodeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 public class ServletCode {
     @Autowired
-    ConfirmcodeDAO confirmcodeDAO;
+    CodeDAO codeDAO;
 
     @GetMapping("/getCode")
     @ResponseBody
@@ -27,21 +27,21 @@ public class ServletCode {
 
         if(data.containsKey("user_phone")) {
             int code = ((int) ((Math.random() * 9 + 1) * 100000));
-            List<ConfirmcodeEntity> list = confirmcodeDAO.findByUserPhone(data.get("user_phone"));
+            List<CodeEntity> list = codeDAO.findByUserPhone(data.get("user_phone"));
 
             if(list.isEmpty()) {
-                ConfirmcodeEntity confirmcodeEntity = new ConfirmcodeEntity();
-                confirmcodeEntity.setCode(Integer.toString(code));
-                confirmcodeEntity.setUserPhone(data.get("user_phone"));
+                CodeEntity codeEntity = new CodeEntity();
+                codeEntity.setCode(Integer.toString(code));
+                codeEntity.setUserPhone(data.get("user_phone"));
 
-                confirmcodeDAO.save(confirmcodeEntity);
+                codeDAO.save(codeEntity);
             }
             //手机号已存在，更新验证码
             else
             {
                 list.get(0).setCode(Integer.toString(code));
 
-                confirmcodeDAO.save(list.get(0));
+                codeDAO.save(list.get(0));
             }
             status="right";
             details="";

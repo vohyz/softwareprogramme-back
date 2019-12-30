@@ -1,6 +1,6 @@
 package com.example.backend.dao;
 
-import com.example.backend.entity.ConfirmcodeEntity;
+import com.example.backend.entity.CodeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Transactional
 @Repository
-public interface ConfirmcodeDAO extends JpaRepository<ConfirmcodeEntity,Integer> {
-    List<ConfirmcodeEntity> findByUserPhone(String phone);
-    ConfirmcodeEntity save(ConfirmcodeEntity confirmcodeEntity);
+public interface CodeDAO extends JpaRepository<CodeEntity,Integer> {
+    List<CodeEntity> findByUserPhone(String phone);
+    CodeEntity save(CodeEntity codeEntity);
 }
