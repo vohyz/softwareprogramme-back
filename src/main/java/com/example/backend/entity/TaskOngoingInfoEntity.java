@@ -1,8 +1,8 @@
 package com.example.backend.entity;
 
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "taskOngoingInfo", schema = "SE-Platform", catalog = "")
@@ -12,12 +12,12 @@ public class TaskOngoingInfoEntity {
     private String info;
     private String tags;
     private Double bonus;
-    private DateTime beginTime;
-    private DateTime endTime;
+    private Timestamp beginTime;
+    private Timestamp endTime;
     private String publisher;
-    private DateTime publishtime;
+    private Timestamp publishtime;
     private String receiver;
-    private DateTime receivetime;
+    private Timestamp receivetime;
 
     @Id
     @Column(name = "id")
@@ -71,21 +71,21 @@ public class TaskOngoingInfoEntity {
 
     @Basic
     @Column(name = "begin_time")
-    public DateTime getBeginTime() {
+    public Timestamp getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(DateTime beginTime) {
+    public void setBeginTime(Timestamp beginTime) {
         this.beginTime = beginTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public DateTime getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(DateTime endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 
@@ -101,11 +101,11 @@ public class TaskOngoingInfoEntity {
 
     @Basic
     @Column(name = "publishtime")
-    public DateTime getPublishtime() {
+    public Timestamp getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(DateTime publishtime) {
+    public void setPublishtime(Timestamp publishtime) {
         this.publishtime = publishtime;
     }
 
@@ -121,11 +121,11 @@ public class TaskOngoingInfoEntity {
 
     @Basic
     @Column(name = "receivetime")
-    public DateTime getReceivetime() {
+    public Timestamp getReceivetime() {
         return receivetime;
     }
 
-    public void setReceivetime(DateTime receivetime) {
+    public void setReceivetime(Timestamp receivetime) {
         this.receivetime = receivetime;
     }
 

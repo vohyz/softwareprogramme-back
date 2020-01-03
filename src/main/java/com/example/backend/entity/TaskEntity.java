@@ -1,6 +1,5 @@
 package com.example.backend.entity;
 
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -13,8 +12,9 @@ public class TaskEntity {
     private String info;
     private String tags;
     private Double bonus;
-    private DateTime beginTime;
-    private DateTime endTime;
+    private Timestamp beginTime;
+    private Timestamp endTime;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "id")
@@ -68,22 +68,32 @@ public class TaskEntity {
 
     @Basic
     @Column(name = "begin_time")
-    public DateTime getBeginTime() {
+    public Timestamp getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(DateTime beginTime) {
+    public void setBeginTime(Timestamp beginTime) {
         this.beginTime = beginTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public DateTime getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(DateTime endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
+    }
+
+    @Basic
+    @Column(name = "create_time")
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -100,6 +110,7 @@ public class TaskEntity {
         if (bonus != null ? !bonus.equals(that.bonus) : that.bonus != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
 
         return true;
     }
@@ -113,6 +124,7 @@ public class TaskEntity {
         result = 31 * result + (bonus != null ? bonus.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }
 }

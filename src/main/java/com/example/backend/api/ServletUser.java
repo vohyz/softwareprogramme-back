@@ -12,8 +12,16 @@ import java.util.Map;
 public class ServletUser {
     @Autowired
     UserDAO userDAO;
+    @PostMapping("/avatar")
+    @ResponseBody
+    public Map<String,String> getdd()
+    {
+        Map<String, String> map = new HashMap<String, String>();
 
-    @PostMapping("/getUserAvatar")
+        map.put("status", "ok");
+        return map;
+    }
+    @PostMapping("/getUserInfo")
     @ResponseBody
     public Map<String,Object> getUserAvatar(@RequestBody Map<String, String> data)
     {
@@ -21,12 +29,14 @@ public class ServletUser {
         String details;
         Map<String, Object> map = new HashMap<String, Object>();
 
-        if(data.containsKey("user_id"))
+        if(data.containsKey("user_name"))
         {
-            String avatar=userDAO.findByUserId(Integer.parseInt(data.get("user_id"))).getUserAvatar();
+            String avatar=userDAO.findByUserName(data.get("user_name")).get(0).getUserAvatar();
+            int user_id=userDAO.findByUserName(data.get("user_name")).get(0).getUserId();
             status="right";
             details="";
             map.put("user_avatar",avatar);
+            map.put("user_Id", user_id);
         }
         else
         {

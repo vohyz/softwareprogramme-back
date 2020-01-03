@@ -1,8 +1,7 @@
 package com.example.backend.entity;
 
-import org.joda.time.DateTime;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -11,7 +10,7 @@ import javax.persistence.*;
 public class HistoryEntity {
     private int taskId;
 
-    private DateTime time;
+    private Timestamp time;
     private String userName;
 
 
@@ -37,11 +36,11 @@ public class HistoryEntity {
 
     @Basic
     @Column(name = "time")
-    public DateTime getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(DateTime time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

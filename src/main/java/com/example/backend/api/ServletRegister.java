@@ -15,6 +15,7 @@ import java.util.Map;
 public class ServletRegister {
     @Autowired
     UserDAO userDAO;
+    @Autowired
     CodeDAO codeDAO;
 
     @PostMapping("/register")

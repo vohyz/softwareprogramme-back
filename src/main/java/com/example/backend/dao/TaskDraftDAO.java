@@ -11,7 +11,7 @@ import java.util.List;
 @Transactional
 @Repository
 public interface TaskDraftDAO extends JpaRepository<TaskDraftEntity,Integer> {
-    @Query(value = "select t.id, t.task_type, t.task_begin_time, t.task_end_time, t.task_addtime " +
+    @Query(value = "select * " +
             "from Task as t where t.creator=?1",nativeQuery = true)
     List<TaskDraftEntity> findByCreator(String name);
 

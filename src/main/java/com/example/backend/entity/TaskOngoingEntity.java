@@ -1,17 +1,17 @@
 package com.example.backend.entity;
 
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "TaskOngoing", schema = "SE-Platform", catalog = "")
 public class TaskOngoingEntity {
     private int taskId;
     private String publisher;
-    private DateTime publishtime;
+    private Timestamp publishtime;
     private String receiver;
-    private DateTime receivetime;
+    private Timestamp receivetime;
 
     @Id
     @Column(name = "task_id")
@@ -35,11 +35,11 @@ public class TaskOngoingEntity {
 
     @Basic
     @Column(name = "publishtime")
-    public DateTime getPublishtime() {
+    public Timestamp getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(DateTime publishtime) {
+    public void setPublishtime(Timestamp publishtime) {
         this.publishtime = publishtime;
     }
 
@@ -55,11 +55,11 @@ public class TaskOngoingEntity {
 
     @Basic
     @Column(name = "receivetime")
-    public DateTime getReceivetime() {
+    public Timestamp getReceivetime() {
         return receivetime;
     }
 
-    public void setReceivetime(DateTime receivetime) {
+    public void setReceivetime(Timestamp receivetime) {
         this.receivetime = receivetime;
     }
 

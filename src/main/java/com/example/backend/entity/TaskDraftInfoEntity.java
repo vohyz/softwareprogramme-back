@@ -1,6 +1,7 @@
 package com.example.backend.entity;
 
-import org.joda.time.DateTime;
+//import org.joda.time.Timestamp;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -13,8 +14,8 @@ public class TaskDraftInfoEntity {
     private String info;
     private String tags;
     private Double bonus;
-    private DateTime beginTime;
-    private DateTime endTime;
+    private Timestamp beginTime;
+    private Timestamp endTime;
     private String creator;
 
 
@@ -70,21 +71,21 @@ public class TaskDraftInfoEntity {
 
     @Basic
     @Column(name = "begin_time")
-    public DateTime getBeginTime() {
+    public Timestamp getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(DateTime beginTime) {
+    public void setBeginTime(Timestamp beginTime) {
         this.beginTime = beginTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public DateTime getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(DateTime endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 
