@@ -17,7 +17,7 @@ public class ServletCode {
 
     @PostMapping("/getCode")
     @ResponseBody
-    public Map<String, Object> getCode(@RequestBody Map<String, String> data) throws ClientException, InterruptedException {
+    public Map<String, Object> getCode(@RequestBody Map<String, String> data) throws ClientException {
         Map<String, Object> map = new HashMap<String, Object>();
         String status;
         String details;

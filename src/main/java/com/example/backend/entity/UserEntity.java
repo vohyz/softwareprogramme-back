@@ -7,12 +7,10 @@ import java.sql.Date;
 @Table(name = "User", schema = "SE-Platform", catalog = "")
 public class UserEntity {
     private int userId;
-    private String userType;
     private String userName;
     private String userPassword;
     private String userSex;
     private String userPhone;
-    private String userEmail;
     private Date userAddtime;
     private String userAvatar;
     private Integer credits;
@@ -27,15 +25,6 @@ public class UserEntity {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "user_type")
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
 
     @Basic
     @Column(name = "user_name")
@@ -77,15 +66,6 @@ public class UserEntity {
         this.userPhone = userPhone;
     }
 
-    @Basic
-    @Column(name = "user_email")
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
 
     @Basic
     @Column(name = "user_addtime")
@@ -125,12 +105,10 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
 
         if (userId != that.userId) return false;
-        if (userType != null ? !userType.equals(that.userType) : that.userType != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPassword != null ? !userPassword.equals(that.userPassword) : that.userPassword != null) return false;
         if (userSex != null ? !userSex.equals(that.userSex) : that.userSex != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
-        if (userEmail != null ? !userEmail.equals(that.userEmail) : that.userEmail != null) return false;
         if (userAddtime != null ? !userAddtime.equals(that.userAddtime) : that.userAddtime != null) return false;
         if (userAvatar != null ? !userAvatar.equals(that.userAvatar) : that.userAvatar != null) return false;
         if (credits != null ? !credits.equals(that.credits) : that.credits != null) return false;
@@ -141,12 +119,10 @@ public class UserEntity {
     @Override
     public int hashCode() {
         int result = userId;
-        result = 31 * result + (userType != null ? userType.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (userPassword != null ? userPassword.hashCode() : 0);
         result = 31 * result + (userSex != null ? userSex.hashCode() : 0);
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
-        result = 31 * result + (userEmail != null ? userEmail.hashCode() : 0);
         result = 31 * result + (userAddtime != null ? userAddtime.hashCode() : 0);
         result = 31 * result + (userAvatar != null ? userAvatar.hashCode() : 0);
         result = 31 * result + (credits != null ? credits.hashCode() : 0);
