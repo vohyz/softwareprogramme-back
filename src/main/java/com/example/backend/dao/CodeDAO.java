@@ -10,6 +10,6 @@ import java.util.List;
 @Transactional
 @Repository
 public interface CodeDAO extends JpaRepository<CodeEntity,Integer> {
-    List<CodeEntity> findByUserPhone(String userPhone);
+    List<CodeEntity> findByUserPhone(String phone);
     CodeEntity save(CodeEntity codeEntity);
 }

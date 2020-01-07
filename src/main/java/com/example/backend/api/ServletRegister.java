@@ -50,20 +50,22 @@ public class ServletRegister {
             }
             //用户名和手机号都未被占用
             else {
-//                List<CodeEntity> code = codeDAO.findByUserPhone(data.get("user_phone"));
-                UserEntity user=new UserEntity();
-                user.setUserId(Integer.parseInt(data.get("user_id")));
-                user.setUserName(name);
-                user.setUserPassword(data.get("user_password"));
-                user.setUserSex(data.get("user_gender"));
-                user.setUserPhone(data.get("user_phone"));
-                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String time = sdf.format(currentTime);
-                user.setUserAddtime(Date.valueOf(time));
-                userDAO.save(user);
-                status="right";
-                details="注册成功";
+                List<CodeEntity> code = codeDAO.findByUserPhone(phone);
+                if(code.get(0).getCode().equals(data.get("user_code"))){
+                    UserEntity user=new UserEntity();
+                    user.setUserId(Integer.parseInt(data.get("user_id")));
+                    user.setUserName(name);
+                    user.setUserPassword(data.get("user_password"));
+                    user.setUserSex(data.get("user_gender"));
+                    user.setUserPhone(data.get("user_phone"));
+                    Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                    DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String time = sdf.format(currentTime);
+                    user.setUserAddtime(Date.valueOf(time));
+                    userDAO.save(user);
+                    status="right";
+                    details="注册成功";
+                }
             }
         }
         else

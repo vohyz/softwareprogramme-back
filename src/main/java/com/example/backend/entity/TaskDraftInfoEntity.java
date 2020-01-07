@@ -1,6 +1,5 @@
 package com.example.backend.entity;
 
-//import org.joda.time.Timestamp;
 import java.sql.Timestamp;
 
 import javax.persistence.*;
